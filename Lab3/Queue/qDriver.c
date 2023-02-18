@@ -23,6 +23,7 @@ Element* itoe (int i)
 }
 int main()
 {
+    start();
     Queue* q = createQueue();
     mem();
     printf("hehe\n");
@@ -45,5 +46,6 @@ int main()
     
     mem();
     printf("Is Queue empty : %s\n", isEmpty(q)?"true":"false");
+    end();
 
 }
