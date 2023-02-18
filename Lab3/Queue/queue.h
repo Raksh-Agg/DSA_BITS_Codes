@@ -2,8 +2,9 @@
 #define QUEUE_H
 #include "element.h"
 #include "bool.h"
+#include "heap_usage.h"
 #define MAX_SIZE 1010
-
+#include <stdio.h>
 typedef struct Queue
 {
     int front;

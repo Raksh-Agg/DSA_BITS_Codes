@@ -1,9 +1,11 @@
 #include "queue.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "heap_usage.h"
+
 Queue *createQueue()
 {
-    Queue* newQ = (Queue*)malloc (sizeof(Queue));
+    Queue* newQ = (Queue*)myalloc(sizeof(Queue));
     newQ->front = 0;
     newQ->rear = 0;
     return newQ;
@@ -16,15 +18,17 @@ bool enqueue(Queue *queue, Element element)
         return false;
     }
     queue->data[(queue->rear)++] = element;
+    return true;
 }
 bool dequeue(Queue *queue)
 {
-    if (queue->front == queue->front)
+    if (queue->front == queue->rear)
     {
         printf("Q is empty, no element to remove\n");
         return false;
     }
     (queue->front)++;
+    return true;
 }
 Element *front(Queue *queue)
 {
@@ -37,7 +41,7 @@ Element *front(Queue *queue)
 }
 int size(Queue *queue)
 {
-    return (queue->front - queue->rear);
+    return (queue->rear - queue->front);
 }
 bool isEmpty(Queue *queue)
 {
