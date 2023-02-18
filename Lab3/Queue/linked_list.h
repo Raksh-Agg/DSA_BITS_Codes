@@ -1,9 +1,7 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
-
 #include "element.h"
 #include "bool.h"
-
 struct node
 {
     Element data;
@@ -11,7 +9,6 @@ struct node
 };
 typedef struct node node;
 typedef node * NODE;
-
 struct linked_list
 {
     int count;
@@ -32,7 +29,7 @@ NODE createNewNode(Element data);
 void insertNodeIntoList(NODE node, LIST list);
 // This function inserts a node at the beginning of the list.
 
-void removeFirstNode(LIST list);
+bool removeFirstNode(LIST list);
 // This function removes the first node from the list.
 
 void insertNodeAtEnd(NODE node, LIST list);
