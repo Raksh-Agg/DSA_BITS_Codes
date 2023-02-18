@@ -3,6 +3,12 @@
 #include <stdlib.h>
 #include "heap_usage.h"
 
+struct Queue
+{
+    int front;
+    int rear;
+    Element data[MAX_SIZE];
+};
 Queue *createQueue()
 {
     Queue* newQ = (Queue*)myalloc(sizeof(Queue));

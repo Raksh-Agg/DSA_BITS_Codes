@@ -24,25 +24,26 @@ Element* itoe (int i)
 int main()
 {
     Queue* q = createQueue();
-    // mem();
+    mem();
+    printf("hehe\n");
     if (isEmpty(q))
     printf("This Queue is empty\n");
     enqueue(q, *(itoe(55)));
     printf("Element at first is %d\n", front(q)->int_value);
-    // mem();
+    mem();
     enqueue(q, *(itoe(89)));
     printf("Element at first is %d\n", front(q)->int_value);
-    // mem();
-    dequeue(q);
-    // mem();
-    printf("Element at first is %d\n", front(q)->int_value);
+    mem();
     printf("Size of Queue is %d\n", size(q));
-    printf("What does deQueue return %d\n", dequeue(q));
-    printf("What does deQueue return %d\n", dequeue(q));
-    printf("Is Queue empty : %d\n", isEmpty(q));
+    dequeue(q);
+    mem();
+    printf("Element at first is %d\n", front(q)->int_value);
+    printf("What does deQueue return %s\n", dequeue(q)?"true":"false");
+    printf("What does deQueue return %s\n", dequeue(q)?"true":"false");
+    printf("Is Queue empty : %s\n", isEmpty(q)?"true":"false");
     destroyQueue(q);
     
-    // mem();
-    printf("Is Queue empty : %d\n", isEmpty(q));
+    mem();
+    printf("Is Queue empty : %s\n", isEmpty(q)?"true":"false");
 
 }

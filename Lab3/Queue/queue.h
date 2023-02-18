@@ -4,13 +4,8 @@
 #include "bool.h"
 #include "heap_usage.h"
 #define MAX_SIZE 1010
-#include <stdio.h>
-typedef struct Queue
-{
-    int front;
-    int rear;
-    Element data[MAX_SIZE];
-} Queue;
+#include "linked_list.h"
+typedef struct Queue Queue;
 Queue *createQueue();
 // createQueue() returns a pointer to a new Queue instance.
 bool enqueue(Queue *queue, Element element);
