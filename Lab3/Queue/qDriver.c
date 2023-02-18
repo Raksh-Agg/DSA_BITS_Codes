@@ -3,6 +3,7 @@
 #include <sys/time.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 struct timeval tv_begin;
 struct timeval tv_end;
 void start() { gettimeofday(&tv_begin, NULL); }
@@ -14,36 +15,35 @@ void end()
 }
 void mem() { printf("Memory used is = %ld\n", heapMemoryAllocated); }
 
-Element* itoe (int i)
+Element* itoe (int mypid, int myartime, int myburst)
 {
     Element* hehe = (Element*)malloc (sizeof(Element));
-    hehe->int_value = i;
-    hehe->float_value = 2.4f;
+    hehe->pid = mypid;
+    hehe->arrival_time = myartime;
+    hehe->burst_time = myburst;
     return hehe;
 }
 int main()
 {
     Queue* q = createQueue();
-    mem();
-    printf("hehe\n");
-    if (isEmpty(q))
-    printf("This Queue is empty\n");
-    enqueue(q, *(itoe(55)));
-    printf("Element at first is %d\n", front(q)->int_value);
-    mem();
-    enqueue(q, *(itoe(89)));
-    printf("Element at first is %d\n", front(q)->int_value);
-    mem();
-    printf("Size of Queue is %d\n", size(q));
-    dequeue(q);
-    mem();
-    printf("Element at first is %d\n", front(q)->int_value);
-    printf("What does deQueue return %s\n", dequeue(q)?"true":"false");
-    printf("What does deQueue return %s\n", dequeue(q)?"true":"false");
-    printf("Is Queue empty : %s\n", isEmpty(q)?"true":"false");
-    destroyQueue(q);
-    
-    mem();
-    printf("Is Queue empty : %s\n", isEmpty(q)?"true":"false");
+    FILE* fptr = fopen("fcfs_input.txt", "r");
+    int numOfProcess = 0;
+    fscanf(fptr, "%d", &numOfProcess);
+    while (numOfProcess--)
+    {
+        int mypid, myartime, myburst;
+        fscanf(fptr, "%d %d %d", &mypid, &myartime, &myburst);
+        enqueue(q, *itoe(mypid, myartime, myburst));
+    }
+    int time = 0;
+    while (!isEmpty(q))
+    {
+        time = (time > front(q)->arrival_time ) ? time : front(q)->arrival_time;
+        printf("Process %d started at time %d\n", front(q)->pid, time);
+        time += front(q)->burst_time;
+        printf("Process %d finished at time %d\n", front(q)->pid, time);
+        dequeue(q);
+    }
+
 
 }
