@@ -1,6 +1,7 @@
 #include "insSort.h"
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 void insertionSort(PerPtr arr, int size)
 {
     __clock_t tv_begin;
@@ -13,7 +14,7 @@ void insertionSort(PerPtr arr, int size)
 }
 void insertInOrder (Person ele, PerPtr arr, int index)
 {
-    while (index > 0 && ele.height < arr[index-1].height)
+    while (index > 0 && strcmp(ele.name, arr[index-1].name) < 0)
     {
         arr[index] = arr[index-1];
         arr[index-1] = ele;
