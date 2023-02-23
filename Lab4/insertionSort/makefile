@@ -9,3 +9,4 @@ Person.o: Person.c Person.h
 	gcc -c Person.c
 clean:
 	rm -f *.o runguy
+# To run, type [make runs]

@@ -13,7 +13,9 @@ int main()
     char line[75];
     char *token;
     fgets(line, 75, fptr);
+    // Test string for storing name correctly
     char * test_string;
+    // Code for taking input from file for Person
     for (int j = 0 ; j < size ; j++)
     {
         fgets(line, 75, fptr);
@@ -32,7 +34,7 @@ int main()
         token = strtok(NULL, ",");
     }
     insertionSort(Array, size);
-    for (int i = 0 ; i < 5 ; i++)
+    for (int i = 0 ; i < size ; i++)
     print(*(Array+i));
     return 0;
 }
