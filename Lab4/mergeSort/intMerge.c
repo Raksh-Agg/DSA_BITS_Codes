@@ -1,14 +1,15 @@
 #include "intMerge.h"
+#include "heap_usage.h"
 void merge(int A[], int s, int mid, int e)
 {
-    int *C = (int*)malloc(sizeof(int)*(e-s+1));
+    int *C = (int*)myalloc(sizeof(int)*(e-s+1));
     int i = s;
     int j = mid+1;
     mergeAux(A,s,mid,A,mid + 1, e, C, 0, e-s);
     // To store final sorted array contents back in A
     for (int i = 0 ; i <= e-s ; i++)
     *(A+s+i) = *(C+i);
-    free (C);
+    myfree(C);
 }
 void mergeSort (int A[], int st, int en)
 {
