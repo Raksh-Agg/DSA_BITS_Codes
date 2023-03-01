@@ -39,17 +39,22 @@ NODE createNewNode(int value)
 }
 
 // Recursive function to compute sum of integers in a linked list
-long long llSumNTR(NODE head, long long mySum)
+long long llSumNTR(NODE head)
 {
-    if (head == NULL)
-        return mySum;
-    return llSumNTR(head->next, mySum + head->ele); // Pay close attention here
+    long long mySum = 0;
+    while (head != NULL)
+    {
+        mySum += head->ele;
+        head = head->next;
+    }
+    return mySum;
+    // Pay close attention here
 }
 
 // This is just a wrapper function to take LIST as input, but run the recursive sum function on its NODEs starting from the head
 long long llSumNTRWrapper(LIST list)
 {
-    return llSumNTR(list->head, 0);
+    return llSumNTR(list->head);
 }
 
 // Driver code
