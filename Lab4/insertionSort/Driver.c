@@ -41,7 +41,7 @@ int main()
     }
     insertionSort(Array, size);
     // Uncomment following lines if you want to test the cases and see for yourself
-    // for (int i = 0 ; i < size ; i++)
-    // print(Array[i]);
+    for (int i = 0 ; i < size ; i++)
+    print(Array[i]);
     return 0;
 }
