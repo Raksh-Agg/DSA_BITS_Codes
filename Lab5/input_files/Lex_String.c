@@ -8,11 +8,11 @@ int main ()
     char* arrPtr[20];
     char arrHard[20][50] =
     {
-        "This is my dream",
-        "oiorr is my dream",
-        "Ahem, This is my dream",
-        "For real is my dream",
-        "mbkgjig is my dream",
+        "One is my dream",
+        "Two is my dream",
+        "Three, This is my dream",
+        "Four real is my dream",
+        "Five is my dream",
         "fygrieuonf is my dream",
         "hehe is my dream",
         "sfhoi is my dream",
@@ -52,23 +52,31 @@ int main ()
 
     gettimeofday(&t1, NULL);
     char tempHard[50];
-    for (int i = 0 ; i < 20 ; i++)
+    for (int i = 0 ; i < 19 ; i++)
     {
-        for (int j = i ; j < 20 ; j++)
+        for (int j = i ; j < 19 ; j++)
         {
             if (strcmp(arrHard[i], arrHard[j]) > 0)
             {
-                strcpy(tempHard, arrHard[j]);
-                strcpy(arrHard[j], arrHard[j+1]);
-                strcpy(arrHard[j+1], tempHard);
+                char c;
+                for (int m = 0 ; m < 50 ; m++)
+                {
+                    c = arrHard[j][m];
+                    arrHard[j][m] = arrHard[i][m];
+                    arrHard[i][m] = c;
+                }
             }
         }
     }
+    // Uncomment to see for yourself the sorted array if you dont trust me
+    // for (int i = 0 ; i < 20 ; i ++)
+    // printf("%s\n", arrHard[i]);
     gettimeofday(&t2, NULL);
     time_taken = (t2.tv_sec - t1.tv_sec) * 1e6;
     time_taken = (time_taken + (t2.tv_usec - t1.tv_usec)) * 1e-6;
     printf("Taking Sum took %f seconds to execute\n", time_taken);
 
+    printf("Now, By Pointers\n");
     gettimeofday(&t1, NULL);
     char *tempPtr;
     for (int i = 0 ; i < 20 ; i++)
@@ -84,6 +92,9 @@ int main ()
             }
         }
     }
+    // Uncomment to see for yourself the sorted array if you dont trust me
+    // for (int i = 0 ; i < 20 ; i ++)
+    // printf("%s\n", arrPtr[i]);
     gettimeofday(&t2, NULL);
     time_taken = (t2.tv_sec - t1.tv_sec) * 1e6;
     time_taken = (time_taken + (t2.tv_usec - t1.tv_usec)) * 1e-6;
