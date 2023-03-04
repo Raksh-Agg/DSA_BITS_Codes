@@ -67,15 +67,11 @@ int main ()
 		for (int i = 0 ; i < size ; i++)
 			if(A[i]/max_2 > 0)
 				max_2 *= 2;
-
-        for (int i = 0 ; i < size ; i++)
-            printf("%-4d\t", A[i]);
-		printf("\n");
 		binary_Radix_sort(A,0,size-1,max_2/2);
         // Uncomment next 3 lines, to see if array is taken correctly.
-        for (int i = 0 ; i < size ; i++)
-            printf("%-4d\t", A[i]);
-		printf("\n");
+        // for (int i = 0 ; i < size ; i++)
+        //     printf("%-4d\t", A[i]);
+		// printf("\n");
     }
 	return 0;
 }
