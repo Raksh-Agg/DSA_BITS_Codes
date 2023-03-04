@@ -13,12 +13,9 @@ typedef struct linked_list
 typedef linked_list* LIST;
 typedef Node* NODE;
 
-
-// ---
 LIST createNewList()
 {
     LIST ll = (LIST)malloc(sizeof(linked_list));
-	// ll->head = (NODE) malloc(sizeof(NODE));
 	ll->head = NULL;
 	ll->count = 0;
     return ll;
@@ -38,11 +35,28 @@ void insertNodeIntoList(NODE newnode, LIST list)
         return;
     }
     newnode->next = list->head;
-	// printf("%d\n", list->count);
-    // list->head = newnode;
 	list->head = newnode;
-	// printf("hehe\n");
     list->count++;
+}
+void insertInOrder (NODE newnode, LIST list)
+{
+	if (list->count == 0)
+	insertNodeIntoList(newnode, list);
+	else
+	{
+		NODE ptr = list->head;
+		if (ptr->data > newnode->data)
+			insertNodeIntoList(newnode, list);
+		else
+		{
+			while ((ptr->next != NULL) && (newnode->data > ptr->next->data) )
+			ptr = ptr->next;
+			newnode->next = ptr->next;
+			ptr->next = newnode;
+			list->count++;
+		}
+	}
+
 }
 void removeFirstNode(LIST list)
 {
@@ -70,28 +84,25 @@ void destroyList(LIST list)
     }
 }
 
-void bucket_sort (int* arr, int size)
+void modified_bucket_sort (int* arr, int size)
 {
-
 	int maxval = 0;
-	for (int i = 0 ; i < size ; i++)
+	for (int i = 0 ; i < size ; i ++)
 		if (maxval < arr[i])
 			maxval = arr[i];
-
+	maxval /= 10;
 	LIST heads[maxval+1];
-	for (int i = 0 ; i <= maxval ; i++)
-		heads[i] = createNewList();
-	for (int i = 0 ; i < size; i ++)
-		insertNodeIntoList(createNewNode(arr[i]),heads[arr[i]]);
-	
-	size_t pos = 0;
 	for (int i = 0 ; i <= maxval ; i ++)
+		heads[i] = createNewList();
+	for (int i = 0 ; i < size ; i ++)
+	insertInOrder(createNewNode(arr[i]), heads[arr[i]/10]);
+	int pos = 0;
+	for (int i = 0 ; i <= maxval ; i++)
 	{
 		while (heads[i]->count > 0)
 		{
-			arr[pos] = i;
+			arr[pos++] = heads[i]->head->data;
 			removeFirstNode(heads[i]);
-			pos++;
 		}
 	}
 }
@@ -99,7 +110,6 @@ int main()
 {
 	FILE* fptr = fopen ("thing.txt", "r");
     int size ;
-
     while (fscanf(fptr,"%d,[", &size) == 1)
     {
         int A[size];
@@ -108,14 +118,12 @@ int main()
             fscanf(fptr,"%d\t", &A[i]);
         }
         fscanf(fptr,"%d]\n", &A[size-1]);
-        for (int i = 0 ; i < size ; i++)
-            printf("%d\n", A[i]);
-		printf("\n");
-		bucket_sort(A,size);
+
+		modified_bucket_sort(A,size);
         // Uncomment next 3 lines, to see if array is taken correctly.
-        for (int i = 0 ; i < size ; i++)
-            printf("%d\n", A[i]);
-		printf("\n");
+        // for (int i = 0 ; i < size ; i++)
+        //     printf("%d\t", A[i]);
+		// printf("\n");
     }
 
 	return 0;
