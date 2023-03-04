@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 // Function to take input an array A and return an array B after performing counting sort on it with array C
 int* counting_sort(int* A, int* B, int k, int n) 
@@ -9,13 +10,11 @@ int* counting_sort(int* A, int* B, int k, int n)
     {
         C[i] = 0;
     }
-
     // Count the number of times each element occurs in A and store it in C
     for (int j = 0; j < n; j++) 
     {
         C[A[j]]++;
     }
-    
     // Place the elements of A in B in the correct position
     for (int i = 1; i < k; i++) 
     {
@@ -32,30 +31,37 @@ int* counting_sort(int* A, int* B, int k, int n)
 // Driver code to test the above function
 int main() 
 {
-    int n;
-    printf("Enter the number of elements in the array: ");
-    scanf("%d", &n);
-    int A[n];
-    printf("Enter the elements of the array: ");
-    for (int i = 0; i < n; i++) 
+    FILE* fptr = fopen ("heights.txt", "r");
+    int size ;
+
+    while (fscanf(fptr,"%d,[", &size) == 1)
     {
-        scanf("%d", &A[i]);
-    }
-    int k = A[0];
-    for (int i = 1; i < n; i++) 
-    {
-        if (A[i] > k) 
+        int A[size];
+        for (int i = 0 ; i < size-1 ; i++)
         {
-            k = A[i];
+            fscanf(fptr,"%d,", &A[i]);
         }
+        fscanf(fptr,"%d]\n", &A[size-1]);
+        // Uncomment next 2 lines, to see if array is taken correctly.
+        // for (int i = 0 ; i < size ; i++)
+        //     printf("Element %d = %d\t", i, A[i]);
+        int k = A[0];
+        for (int i = 1; i < size; i++) 
+        {
+            if (A[i] > k) 
+            {
+                k = A[i];
+            }
+        }
+        int B[size];
+        int* sorted_array = counting_sort(A, B, k + 1, size);
+        int cnt = 0;
+        for (int i = 0 ; i < size ; i++)
+        cnt += (sorted_array[i] == A[i]);
+
+        printf("Ans is : %d\n", cnt);
+
     }
-    int B[n];
-    int* sorted_array = counting_sort(A, B, k + 1, n);
-    printf("The sorted array is: ");
-    for (int i = 0; i < n; i++) 
-    {
-        printf("%d ", sorted_array[i]);
-    }
-    printf("\n");
+    // printf("\n");
     return 0;
 }
